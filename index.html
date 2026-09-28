@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOUTIQUE - Fashion Trendi & Nyaman</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
+                            dark: '#111827'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen selection:bg-brand-500 selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-brand-700 via-brand-600 to-pink-600 text-white text-xs font-medium py-2 px-4 text-center tracking-wide shadow-sm">
+        ✨ Diskon Spesial Pembukaan Online Shop! Temukan Koleksi Pakaian Harian Premium Favoritmu ✨
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 glass-nav border-b border-slate-200/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-pink-400 flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
+                        B
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif text-2xl font-bold tracking-widest text-slate-900 group-hover:text-brand-600 transition-colors">BOUTIQUE</span>
+                        <span class="text-[10px] tracking-widest text-slate-500 uppercase -mt-1">EST. 2019</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-700">
+                    <a href="#home" class="hover:text-brand-600 transition-colors py-1 border-b-2 border-transparent hover:border-brand-600">Beranda</a>
+                    <a href="#tentang" class="hover:text-brand-600 transition-colors py-1 border-b-2 border-transparent hover:border-brand-600">Tentang Kami</a>
+                    <a href="#katalog" class="hover:text-brand-600 transition-colors py-1 border-b-2 border-transparent hover:border-brand-600">Katalog Produk</a>
+                    <a href="#kontak" class="hover:text-brand-600 transition-colors py-1 border-b-2 border-transparent hover:border-brand-600">Lokasi & Kontak</a>
+                </nav>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-3">
+                    <button onclick="focusSearch()" class="p-2.5 rounded-full hover:bg-slate-100 text-slate-600 transition-colors" title="Cari Baju">
+                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                    </button>
+
+                    <!-- Cart Trigger -->
+                    <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-full bg-brand-50 text-brand-700 hover:bg-brand-100 transition-all focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <i class="fa-solid fa-bag-shopping text-lg"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-brand-600 text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white transform scale-0 transition-transform">0</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-lg text-slate-600 hover:bg-slate-100">
+                        <i id="menu-icon" class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium hover:text-brand-600">Beranda</a>
+            <a href="#tentang" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium hover:text-brand-600">Tentang Kami</a>
+            <a href="#katalog" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium hover:text-brand-600">Katalog Produk</a>
+            <a href="#kontak" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium hover:text-brand-600">Lokasi & Kontak</a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="home" class="relative overflow-hidden bg-slate-900 text-white py-16 sm:py-24 lg:py-32">
+            <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#ec4899_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="absolute -right-20 -top-20 w-96 h-96 bg-brand-600 rounded-full blur-3xl opacity-30"></div>
+            <div class="absolute -left-20 -bottom-20 w-96 h-96 bg-purple-600 rounded-full blur-3xl opacity-25"></div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-brand-200 text-xs font-medium backdrop-blur-md border border-white/10">
+                            <i class="fa-solid fa-crown text-amber-300"></i> Premium Fashion Everyday
+                        </div>
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+                            Tampil Stylish & Makin <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-brand-300 to-amber-200">Percaya Diri</span> Setiap Hari
+                        </h1>
+                        <p class="text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed mx-auto lg:mx-0">
+                            Kami menghadirkan koleksi pakaian harian yang nyaman, stylish, dan bikin kamu makin percaya diri. Mulai dari kaus santai, hoodie kekinian, atasan kekinian dan dress semua dibuat dengan bahan berkualitas premium yang pas untuk menemani setiap aktivitas harianmu.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                            <a href="#katalog" class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-pink-500 hover:from-brand-500 hover:to-pink-400 text-white font-semibold shadow-lg shadow-brand-600/30 transition-all hover:-translate-y-0.5">
+                                Belanja Sekarang <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                            <a href="#tentang" class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium border border-white/20 backdrop-blur-md transition-all">
+                                Pelajari Lebih Lanjut
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 flex justify-center">
+                        <div class="relative w-full max-w-sm sm:max-w-md">
+                            <!-- Hero Showcase Image -->
+                            <div class="bg-gradient-to-b from-white/10 to-white/5 border border-white/20 p-4 rounded-3xl backdrop-blur-xl shadow-2xl relative overflow-hidden">
+                                <div class="aspect-[4/5] rounded-2xl bg-slate-800 relative overflow-hidden group">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiznhECZk0wsJ-4qzp1K5wzmjyty-v8ifgwwdiiwCrfg&s=10" 
+                                         alt="BOUTIQUE Collection Showcase" 
+                                         class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                                    <div class="absolute bottom-6 left-6 right-6 text-left">
+                                        <span class="px-2.5 py-1 bg-brand-600 text-white text-[10px] uppercase font-bold tracking-wider rounded-md">Trending Now</span>
+                                        <h3 class="font-serif text-2xl font-bold text-white mt-1">Koleksi Terkini 2026</h3>
+                                        <p class="text-xs text-slate-300">Desain eksklusif & fleksibel untuk gaya sehari-hari.</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex items-center justify-between text-xs text-slate-300 px-2">
+                                    <span><i class="fa-solid fa-shield-halved text-brand-400 mr-1"></i> Bahan 100% Premium</span>
+                                    <span><i class="fa-solid fa-truck-fast text-brand-400 mr-1"></i> Pengiriman Cepat</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About & Vision/Mission Section -->
+        <section id="tentang" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+                    <span class="text-brand-600 font-semibold text-sm uppercase tracking-wider">Tentang BOUTIQUE</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900">
+                        Destinasi Fesyen Utama Anda Sejak 2019
+                    </h2>
+                    <div class="w-16 h-1 bg-brand-500 mx-auto rounded-full"></div>
+                    <p class="text-slate-600 text-base leading-relaxed pt-2">
+                        Selamat datang di <strong>BOUTIQUE</strong>! Kami adalah destinasi fesyen yang menghadirkan koleksi pakaian berkualitas, nyaman, dan selalu mengikuti tren terkini. Berdiri sejak tahun <strong>2019</strong>, kami percaya bahwa pakaian bukan sekadar apa yang Anda kenakan, melainkan cara Anda mengekspresikan diri dan membangun rasa percaya diri setiap hari.
+                    </p>
+                </div>
+
+                <!-- Vision & Mission Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Vision Card -->
+                    <div class="md:col-span-1 bg-slate-50 p-8 rounded-3xl border border-slate-200/80 hover:shadow-lg transition-shadow relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">Visi Kami</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Menjadi destinasi belanja pakaian terdepan yang menginspirasi setiap individu untuk tampil percaya diri melalui gaya fesyen mereka sendiri.
+                        </p>
+                    </div>
+
+                    <!-- Mission Card -->
+                    <div class="md:col-span-2 bg-gradient-to-br from-brand-900 to-slate-900 text-white p-8 rounded-3xl shadow-xl relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-brand-600/20 rounded-full blur-2xl"></div>
+                        <div class="w-12 h-12 rounded-2xl bg-white/10 text-pink-300 flex items-center justify-center text-xl mb-6 backdrop-blur-md">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-white mb-4">Misi Kami</h3>
+                        <ul class="space-y-4 text-slate-200 text-sm">
+                            <li class="flex items-start gap-3">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-brand-500/30 text-brand-300 flex items-center justify-center text-xs mt-0.5">1</span>
+                                <span><strong>Kualitas & Tren:</strong> Menyediakan produk pakaian berkualitas tinggi dengan desain yang selalu mengikuti perkembangan tren.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-brand-500/30 text-brand-300 flex items-center justify-center text-xs mt-0.5">2</span>
+                                <span><strong>Pengalaman Berbelanja:</strong> Memberikan pengalaman berbelanja yang nyaman, ramah, dan memuaskan baik secara langsung maupun online.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-brand-500/30 text-brand-300 flex items-center justify-center text-xs mt-0.5">3</span>
+                                <span><strong>Harga Kompetitif:</strong> Menawarkan harga yang kompetitif tanpa mengorbankan kualitas produk.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Product Catalog Section -->
+        <section id="katalog" class="py-20 bg-slate-100/70 border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                    <div>
+                        <span class="text-brand-600 font-semibold text-sm uppercase tracking-wider">Koleksi Spesial</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 mt-1">Katalog Pilihan BOUTIQUE</h2>
+                        <p class="text-slate-500 text-sm mt-2">Pilih pakaian favoritmu dan klik foto untuk melihat panduan ukuran lengkap!</p>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-1 sm:w-64">
+                            <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="Cari nama pakaian..." 
+                                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white text-sm">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-4 mb-8">
+                    <button onclick="setCategory('all')" id="cat-all" class="cat-btn active px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all bg-brand-600 text-white shadow-md">
+                        Semua Produk
+                    </button>
+                    <button onclick="setCategory('kaus')" id="cat-kaus" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200">
+                        Kaus Santai
+                    </button>
+                    <button onclick="setCategory('hoodie')" id="cat-hoodie" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200">
+                        Hoodie Kekinian
+                    </button>
+                    <button onclick="setCategory('atasan')" id="cat-atasan" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200">
+                        Atasan Kekinian
+                    </button>
+                    <button onclick="setCategory('dress')" id="cat-dress" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200">
+                        Dress
+                    </button>
+                </div>
+
+                <!-- Product Grid Container -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Dynamic Product Cards Injected via JS -->
+                </div>
+
+                <div id="no-products-msg" class="hidden text-center py-16">
+                    <i class="fa-solid fa-shirt text-5xl text-slate-300 mb-4"></i>
+                    <p class="text-slate-600 font-medium text-lg">Tidak ada produk yang cocok dengan pencarian Anda.</p>
+                    <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-brand-600 text-white text-sm rounded-lg hover:bg-brand-700">Tampilkan Semua Produk</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact & Location Section -->
+        <section id="kontak" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    <!-- Store Info & Direct Contact -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div>
+                            <span class="text-brand-600 font-semibold text-sm uppercase tracking-wider">Kunjungi & Hubungi Kami</span>
+                            <h2 class="font-serif text-3xl font-bold text-slate-900 mt-1">Informasi Lokasi & Kontak</h2>
+                            <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+                                Kami siap melayani pertanyaan, pemesanan, dan kunjungan kamu. Jangan ragu untuk terhubung bersama kami!
+                            </p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- WhatsApp -->
+                            <a href="https://wa.me/62822110945" target="_blank" class="flex items-start gap-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 hover:border-emerald-300 transition-colors group">
+                                <div class="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform shadow-md">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-base">WhatsApp / Telepon</h4>
+                                    <p class="text-slate-700 text-sm font-semibold mt-0.5">+62 822110945</p>
+                                    <p class="text-xs text-emerald-700 mt-1">Klik untuk chat langsung dengan Admin <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></p>
+                                </div>
+                            </a>
+
+                            <!-- Instagram -->
+                            <a href="https://instagram.com/loouvdraa_" target="_blank" class="flex items-start gap-4 p-4 rounded-2xl bg-pink-50 border border-pink-100 hover:border-pink-300 transition-colors group">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform shadow-md">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-base">Instagram Official</h4>
+                                    <p class="text-slate-700 text-sm font-semibold mt-0.5">@loouvdraa_</p>
+                                    <p class="text-xs text-pink-700 mt-1">Ikuti kami untuk update OOTD & promo harian <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></p>
+                                </div>
+                            </a>
+
+                            <!-- Address & Hours -->
+                            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-location-dot text-brand-600 text-lg mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-sm">Alamat Toko</h4>
+                                        <p class="text-slate-600 text-sm mt-0.5">Jl. Bunga Matahari</p>
+                                    </div>
+                                </div>
+
+                                <div class="border-t border-slate-200 pt-3 flex items-start gap-3">
+                                    <i class="fa-solid fa-clock text-brand-600 text-lg mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-sm">Jam Operasional</h4>
+                                        <p class="text-slate-600 text-sm mt-0.5">Senin – Sabtu (09.00 – 21.00 WIB)</p>
+                                        <p class="text-xs text-amber-600 font-medium mt-0.5">Minggu & Hari Libur Nasional: Tutup</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Map Card -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden h-full flex flex-col justify-between">
+                            <div class="absolute top-0 right-0 p-8 opacity-10">
+                                <i class="fa-solid fa-store text-9xl"></i>
+                            </div>
+
+                            <div class="space-y-4 relative z-10">
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-semibold border border-brand-500/30">
+                                    <i class="fa-solid fa-map-pin"></i> Offline Store
+                                </div>
+                                <h3 class="font-serif text-2xl sm:text-3xl font-bold">Kunjungi Outlet Fisik BOUTIQUE</h3>
+                                <p class="text-slate-300 text-sm leading-relaxed max-w-lg">
+                                    Nikmati sensasi berbelanja langsung di outlet kami dengan suasana yang nyaman, fitting room yang bersih, serta bantuan pelayanan yang ramah dari tim BOUTIQUE.
+                                </p>
+                            </div>
+
+                            <div class="mt-8 rounded-2xl bg-slate-800 border border-slate-700 p-6 flex flex-col items-center justify-center text-center space-y-4 relative z-10">
+                                <div class="w-16 h-16 rounded-full bg-brand-600/20 text-brand-400 flex items-center justify-center text-2xl">
+                                    <i class="fa-solid fa-map-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-base font-bold text-white">Jl. Bunga Matahari</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Pusat Kota - Akses Mudah & Area Parkir Luas</p>
+                                </div>
+                                <a href="https://maps.google.com/?q=Jl.+Bunga+Matahari" target="_blank" class="px-5 py-2.5 rounded-xl bg-white text-slate-900 text-xs font-bold hover:bg-brand-100 transition-colors inline-flex items-center gap-2">
+                                    <i class="fa-solid fa-directions text-brand-600"></i> Buka Google Maps
+                                </a>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 relative z-10">
+                                <span><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Cash & QRIS</span>
+                                <span><i class="fa-solid fa-square-parking text-blue-400 mr-1"></i> Parkir Gratis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 text-sm border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                
+                <div class="md:col-span-2 space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-base">B</div>
+                        <span class="font-serif text-xl font-bold text-white tracking-widest">BOUTIQUE</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
+                        Destinasi fesyen yang menghadirkan pakaian berkualitas, nyaman, dan selalu mengikuti tren terkini untuk menemani setiap langkah dan aktivitas harianmu.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="https://instagram.com/loouvdraa_" target="_blank" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-brand-600 text-white flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/62822110945" target="_blank" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-emerald-600 text-white flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-3">Navigasi Cepat</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#home" class="hover:text-white transition-colors">Beranda</a></li>
+                        <li><a href="#tentang" class="hover:text-white transition-colors">Visi & Misi Toko</a></li>
+                        <li><a href="#katalog" class="hover:text-white transition-colors">Katalog Baju</a></li>
+                        <li><a href="#kontak" class="hover:text-white transition-colors">Lokasi & Kontak</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-3">Kategori Baju</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#katalog" onclick="setCategory('kaus')" class="hover:text-white transition-colors">Kaus Santai</a></li>
+                        <li><a href="#katalog" onclick="setCategory('hoodie')" class="hover:text-white transition-colors">Hoodie Kekinian</a></li>
+                        <li><a href="#katalog" onclick="setCategory('atasan')" class="hover:text-white transition-colors">Atasan Kekinian</a></li>
+                        <li><a href="#katalog" onclick="setCategory('dress')" class="hover:text-white transition-colors">Dress</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+                <p>&copy; 2026 BOUTIQUE Fashion Store. All Rights Reserved.</p>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-[11px]">
+                    <i class="fa-solid fa-code text-brand-400"></i> Project Web Siswi SMKN - Jurusan TKJ
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="relative bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl animate-fade-in my-8 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 z-10">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div id="modal-content" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Content injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Slide-over Drawer -->
+    <div id="cart-drawer-backdrop" onclick="toggleCartDrawer()" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden transition-opacity"></div>
+    
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif font-bold text-lg text-slate-900">Keranjang Belanja</h3>
+                    <p class="text-xs text-slate-500"><span id="cart-item-count">0</span> barang dipilih</p>
+                </div>
+            </div>
+            <button onclick="toggleCartDrawer()" class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-container" class="flex-grow overflow-y-auto p-6 space-y-4">
+            <!-- Dynamic Cart Items -->
+        </div>
+
+        <!-- Cart Summary & Order Form -->
+        <div class="p-6 border-t border-slate-200 bg-slate-50 space-y-4">
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between text-slate-600">
+                    <span>Subtotal Produk</span>
+                    <span id="cart-subtotal" class="font-semibold text-slate-900">Rp0</span>
+                </div>
+                <div class="flex justify-between text-slate-500 text-xs">
+                    <span>Ongkos Kirim</span>
+                    <span>Dihitung saat konfirmasi WA</span>
+                </div>
+                <div class="border-t border-slate-200 pt-2 flex justify-between text-base font-bold text-slate-900">
+                    <span>Total Estimasi</span>
+                    <span id="cart-total" class="text-brand-600">Rp0</span>
+                </div>
+            </div>
+
+            <!-- Customer Data Input Form -->
+            <div class="space-y-2.5 pt-2">
+                <label class="block text-xs font-semibold text-slate-700 uppercase">Informasi Pemesan</label>
+                <input type="text" id="cust-name" placeholder="Nama Lengkap Anda" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <textarea id="cust-address" rows="2" placeholder="Alamat Lengkap Pengiriman" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
+                <input type="text" id="cust-notes" placeholder="Catatan tambahan (misal: warna cadangan)" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            </div>
+
+            <button onclick="checkoutWhatsApp()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Pesan via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
+
+    <script>
+        // Catalog Products Data based on prompt specification
+        const products = [
+            // Kaus Santai
+            {
+                id: 'kaus-1',
+                name: 'ChillVibe Oversized Tee',
+                category: 'kaus',
+                categoryLabel: 'Kaus Santai',
+                price: 89000,
+                desc: 'Kaus berbahan Cotton Combed 24s premium dengan potongan oversized yang adem, jatuh, dan santai untuk nongkrong maupun menemani kegiatan harianmu.',
+                badge: 'Best Seller',
+                sizes: {
+                    'S': 'LD: 104 cm | Panjang: 70 cm | Lengan: 22 cm',
+                    'M': 'LD: 108 cm | Panjang: 72 cm | Lengan: 23 cm',
+                    'L': 'LD: 112 cm | Panjang: 74 cm | Lengan: 24 cm',
+                    'XL': 'LD: 118 cm | Panjang: 76 cm | Lengan: 25 cm'
+                },
+                color: 'Soft Beige / Off White',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdfnyxBegUwGh33cV6gCdbJQNFlXtOtvZU9Jn1CV9ljg&s'
+            },
+            {
+                id: 'kaus-2',
+                name: 'DailyEase Cotton Pocket Tee',
+                category: 'kaus',
+                categoryLabel: 'Kaus Santai',
+                price: 75000,
+                desc: 'Kaus simpel nan stylish dilengkapi saku dada minimalis. Terbuat dari 100% Cotton Combed 30s super halus yang dingin di kulit.',
+                badge: 'Favorit',
+                sizes: {
+                    'S': 'LD: 96 cm | Panjang: 68 cm | Lengan: 20 cm',
+                    'M': 'LD: 100 cm | Panjang: 70 cm | Lengan: 21 cm',
+                    'L': 'LD: 104 cm | Panjang: 72 cm | Lengan: 22 cm',
+                    'XL': 'LD: 108 cm | Panjang: 74 cm | Lengan: 23 cm'
+                },
+                color: 'Sage Green / Charcoal',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfXWMfK5LeLB9N1sdPyMBEDnQsEbyNoO-4E1VgKtyyg&s=10'
+            },
+            {
+                id: 'kaus-3',
+                name: 'WeekendDrift Graphics Tee',
+                category: 'kaus',
+                categoryLabel: 'Kaus Santai',
+                price: 99000,
+                desc: 'Kaus kasual dengan sentuhan sablon grafis HD berkualitas tinggi yang tidak mudah retak. Memberikan tampilan streetwear kekinian.',
+                badge: 'New',
+                sizes: {
+                    'S': 'LD: 98 cm | Panjang: 69 cm | Lengan: 21 cm',
+                    'M': 'LD: 102 cm | Panjang: 71 cm | Lengan: 22 cm',
+                    'L': 'LD: 106 cm | Panjang: 73 cm | Lengan: 23 cm',
+                    'XL': 'LD: 110 cm | Panjang: 75 cm | Lengan: 24 cm'
+                },
+                color: 'Vintage Black',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5M4RT-dR1fEyGE2EBN0aEYDTWwOZ2Kb3SZm5lnxmLWA&s=10'
+            },
+
+            // Hoodie Kekinian
+            {
+                id: 'hoodie-1',
+                name: 'UrbanFlex Heavyweight Hoodie',
+                category: 'hoodie',
+                categoryLabel: 'Hoodie Kekinian',
+                price: 229000,
+                desc: 'Hoodie tebal berbahan Heavy Cotton Fleece 330gsm. Sangat hangat namun tetap breathable, dilengkapi saku kangguru dan kupluk double-layer.',
+                badge: 'Hot Item',
+                sizes: {
+                    'S': 'LD: 110 cm | Panjang: 66 cm | Lengan: 60 cm',
+                    'M': 'LD: 114 cm | Panjang: 68 cm | Lengan: 62 cm',
+                    'L': 'LD: 120 cm | Panjang: 71 cm | Lengan: 64 cm',
+                    'XL': 'LD: 126 cm | Panjang: 74 cm | Lengan: 66 cm'
+                },
+                color: 'Midnight Black / Heather Grey',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlllV_VTLSbvwaS7ITc4fvTZzux9gdHSghrfEojUJEPQ&s=10'
+            },
+            {
+                id: 'hoodie-2',
+                name: 'AuraPulse Pastel Hoodie',
+                category: 'hoodie',
+                categoryLabel: 'Hoodie Kekinian',
+                price: 199000,
+                desc: 'Hoodie warna pastel aesthetic berbahan fleece soft-touch. Sangat fleksibel dan memberikan nuansa Korean-style yang manis.',
+                badge: 'Trending',
+                sizes: {
+                    'S': 'LD: 106 cm | Panjang: 64 cm | Lengan: 58 cm',
+                    'M': 'LD: 110 cm | Panjang: 66 cm | Lengan: 60 cm',
+                    'L': 'LD: 116 cm | Panjang: 69 cm | Lengan: 62 cm',
+                    'XL': 'LD: 122 cm | Panjang: 72 cm | Lengan: 64 cm'
+                },
+                color: 'Lilac Soft / Milk Pink',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoDTPpAnWKalZwc_e94VBdITa0jI2XjI5IfbFm3vY_pA&s=10'
+            },
+            {
+                id: 'hoodie-3',
+                name: 'CloudComfort Cropped Hoodie',
+                category: 'hoodie',
+                categoryLabel: 'Hoodie Kekinian',
+                price: 185000,
+                desc: 'Cropped hoodie modis berbahan baby terry premium yang empuk dan halus. Sangat pas dipadukan dengan high-waist pants.',
+                badge: 'Cute Pick',
+                sizes: {
+                    'S': 'LD: 100 cm | Panjang: 48 cm | Lengan: 56 cm',
+                    'M': 'LD: 104 cm | Panjang: 50 cm | Lengan: 58 cm',
+                    'L': 'LD: 108 cm | Panjang: 52 cm | Lengan: 60 cm',
+                    'XL': 'LD: 112 cm | Panjang: 54 cm | Lengan: 62 cm'
+                },
+                color: 'Creamy Butter / Light Blue',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP1y4q-91UwkFkeByemsFWK1Pnl1O-j4JGzzI9GbOnRQ&s'
+            },
+
+            // Atasan Kekinian
+            {
+                id: 'atasan-1',
+                name: 'AeroFit Ribbed Knit Top',
+                category: 'atasan',
+                categoryLabel: 'Atasan Kekinian',
+                price: 115000,
+                desc: 'Atasan berbahan rajut premium bertekstur rib yang elastis dan menawan. Mengikuti bentuk tubuh dengan sangat nyaman tanpa terasa sesak.',
+                badge: 'Popular',
+                sizes: {
+                    'S': 'LD: 82-88 cm (Stretch) | Panjang: 52 cm',
+                    'M': 'LD: 88-94 cm (Stretch) | Panjang: 54 cm',
+                    'L': 'LD: 94-100 cm (Stretch) | Panjang: 56 cm',
+                    'XL': 'LD: 100-106 cm (Stretch) | Panjang: 58 cm'
+                },
+                color: 'Terracotta / Ivory White',
+                image: 'https://minimal.id/cdn/shop/files/Artboard2_bf0d28e6-072a-484d-bc21-2763e524f7ec_720x.jpg?v=1757268087'
+            },
+            {
+                id: 'atasan-2',
+                name: 'StreetGlow Asymmetric Blouse',
+                category: 'atasan',
+                categoryLabel: 'Atasan Kekinian',
+                price: 135000,
+                desc: 'Blouse modern dengan siluet potongan asimetris yang futuristik & chic. Terbuat dari katun rayon premium yang jatuh dan dingin.',
+                badge: 'Exclusive',
+                sizes: {
+                    'S': 'LD: 92 cm | Panjang Kanan: 62 cm | Panjang Kiri: 52 cm',
+                    'M': 'LD: 96 cm | Panjang Kanan: 64 cm | Panjang Kiri: 54 cm',
+                    'L': 'LD: 100 cm | Panjang Kanan: 66 cm | Panjang Kiri: 56 cm',
+                    'XL': 'LD: 105 cm | Panjang Kanan: 68 cm | Panjang Kiri: 58 cm'
+                },
+                color: 'Dusty Rose / Mocha',
+                image: 'https://dynamic.zacdn.com/XUp-iuUoV0NoKaruHZd6nNDNZM8=/filters:quality(70):format(webp)/https://static-id.zacdn.com/p/trendyol-0234-2803335-4.jpg'
+            },
+            {
+                id: 'atasan-3',
+                name: 'LunaDrape Linen Top',
+                category: 'atasan',
+                categoryLabel: 'Atasan Kekinian',
+                price: 149000,
+                desc: 'Atasan berbahan linen katun premium dengan aksen kerut drape lembut. Memberikan kesan estetis, bersih, dan berkelas.',
+                badge: 'Elegant',
+                sizes: {
+                    'S': 'LD: 94 cm | Panjang: 60 cm',
+                    'M': 'LD: 98 cm | Panjang: 62 cm',
+                    'L': 'LD: 102 cm | Panjang: 64 cm',
+                    'XL': 'LD: 108 cm | Panjang: 66 cm'
+                },
+                color: 'Natural Oatmeal / Olive Green',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF5wvU3jB2xiqA7nA6gRU4NW6lrLC_TFzXgo4WAP6Xtw&s'
+            },
+
+            // Dress
+            {
+                id: 'dress-1',
+                name: 'Solstice Flowy Mididress',
+                category: 'dress',
+                categoryLabel: 'Dress',
+                price: 249000,
+                desc: 'Dress kasual midi berbahan chiffon crepe berfuring lembut. Sangat anggun ditiup angin, meliuk indah dan memberikan siluet ramping.',
+                badge: 'Best Dress',
+                sizes: {
+                    'S': 'LD: 90 cm | Panjang Dress: 110 cm | Pinggang: 70-80 cm',
+                    'M': 'LD: 94 cm | Panjang Dress: 112 cm | Pinggang: 74-84 cm',
+                    'L': 'LD: 98 cm | Panjang Dress: 114 cm | Pinggang: 78-88 cm',
+                    'XL': 'LD: 104 cm | Panjang Dress: 116 cm | Pinggang: 84-94 cm'
+                },
+                color: 'Floral Sage / Dusty Violet',
+                image: 'https://executive.co.id/cdn/shop/products/5-DDWKSG223J040_OFF_WHITE_1_T.jpg?v=1697794651'
+            },
+            {
+                id: 'dress-2',
+                name: 'VelvetHour Bodycon Dress',
+                category: 'dress',
+                categoryLabel: 'Dress',
+                price: 219000,
+                desc: 'Bodycon dress berbahan velvet-blend elastis yang melukiskan bentuk tubuh dengan memukau untuk acara pesta maupun semi-formal.',
+                badge: 'Party Look',
+                sizes: {
+                    'S': 'LD: 84-88 cm | Panjang Dress: 100 cm',
+                    'M': 'LD: 88-94 cm | Panjang Dress: 102 cm',
+                    'L': 'LD: 94-100 cm | Panjang Dress: 104 cm',
+                    'XL': 'LD: 100-106 cm | Panjang Dress: 106 cm'
+                },
+                color: 'Burgundy / Midnight Navy',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq4DI4ionRFdFXYISZeNOcCCijTJejwr2DIV9HS9FYRQ&s'
+            },
+            {
+                id: 'dress-3',
+                name: 'MeadowBreeze Tiered Dress',
+                category: 'dress',
+                categoryLabel: 'Dress',
+                price: 269000,
+                desc: 'Dress bertingkat (tiered) motif minimalis nan elegan. Terbuat dari bahan rayon super adem yang sangat pas untuk acara liburan pantai atau jalan-jalan.',
+                badge: 'Must Have',
+                sizes: {
+                    'S': 'LD: 92 cm | Panjang Dress: 118 cm',
+                    'M': 'LD: 96 cm | Panjang Dress: 120 cm',
+                    'L': 'LD: 100 cm | Panjang Dress: 122 cm',
+                    'XL': 'LD: 106 cm | Panjang Dress: 124 cm'
+                },
+                color: 'Butter Yellow / Sky Floral',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiznhECZk0wsJ-4qzp1K5wzmjyty-v8ifgwwdiiwCrfg&s=10'
+            }
+        ];
+
+        // Application State
+        let currentCategory = 'all';
+        let cart = [];
+        let selectedSizes = {}; // productId -> selectedSize
+
+        // Format Currency Helper
+        function formatRupiah(amount) {
+            return 'Rp' + amount.toLocaleString('id-ID');
+        }
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            loadCartFromStorage();
+            updateCartUI();
+        });
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            
+            // Update Tab UI
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+            });
+
+            const activeBtn = document.getElementById(`cat-${cat}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+                activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-md');
+            }
+
+            renderProducts();
+        }
+
+        function filterProducts() {
+            renderProducts();
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            setCategory('all');
+        }
+
+        function focusSearch() {
+            const input = document.getElementById('search-input');
+            input.focus();
+            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Render Product Cards
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const searchKeyword = document.getElementById('search-input').value.toLowerCase().trim();
+            const noMsg = document.getElementById('no-products-msg');
+
+            grid.innerHTML = '';
+
+            const filtered = products.filter(p => {
+                const matchesCategory = (currentCategory === 'all') || (p.category === currentCategory);
+                const matchesSearch = p.name.toLowerCase().includes(searchKeyword) || p.desc.toLowerCase().includes(searchKeyword);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                noMsg.classList.remove('hidden');
+            } else {
+                noMsg.classList.add('hidden');
+            }
+
+            filtered.forEach(p => {
+                if (!selectedSizes[p.id]) {
+                    selectedSizes[p.id] = 'M';
+                }
+
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-3xl overflow-hidden border border-slate-200/80 hover:shadow-xl transition-all duration-300 flex flex-col group';
+                
+                card.innerHTML = `
+                    <div class="relative aspect-[4/5] bg-slate-100 overflow-hidden cursor-pointer" onclick="openProductModal('${p.id}')">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                        
+                        <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-md text-brand-700 text-[10px] font-bold px-3 py-1 rounded-full shadow-sm border border-brand-100">
+                            ${p.badge}
+                        </span>
+                        
+                        <span class="absolute bottom-3 right-3 bg-slate-900/80 text-white text-[10px] font-medium px-2.5 py-1 rounded-md backdrop-blur-md">
+                            ${p.categoryLabel}
+                        </span>
+                    </div>
+
+                    <div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+                                <span>Warna: ${p.color}</span>
+                                <span class="text-amber-500 font-semibold"><i class="fa-solid fa-star text-[10px]"></i> 4.9</span>
+                            </div>
+                            <h3 class="font-serif text-lg font-bold text-slate-900 leading-snug hover:text-brand-600 transition-colors cursor-pointer" onclick="openProductModal('${p.id}')">
+                                ${p.name}
+                            </h3>
+                            <p class="text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed">
+                                ${p.desc}
+                            </p>
+                        </div>
+
+                        <!-- Size Selector Buttons -->
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-500 mb-1.5 uppercase">Pilih Ukuran:</label>
+                            <div class="grid grid-cols-4 gap-1.5">
+                                ${Object.keys(p.sizes).map(size => `
+                                    <button onclick="selectSize('${p.id}', '${size}')" 
+                                        id="size-btn-${p.id}-${size}"
+                                        class="size-btn-${p.id} text-xs py-1.5 rounded-lg font-semibold border transition-all ${selectedSizes[p.id] === size ? 'bg-brand-600 text-white border-brand-600' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}">
+                                        ${size}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase font-medium">Harga</span>
+                                <span class="text-base font-bold text-brand-700">${formatRupiah(p.price)}</span>
+                            </div>
+                            
+                            <div class="flex gap-1.5">
+                                <button onclick="openProductModal('${p.id}')" title="Detail & Panduan Size" class="p-2.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors text-xs">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </button>
+                                <button onclick="addToCart('${p.id}')" class="px-3.5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-sm">
+                                    <i class="fa-solid fa-cart-plus"></i> + Keranjang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Handle Size Selection in Card
+        function selectSize(productId, size) {
+            selectedSizes[productId] = size;
+            document.querySelectorAll(`.size-btn-${productId}`).forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white', 'border-brand-600');
+                btn.classList.add('bg-slate-50', 'text-slate-700', 'border-slate-200');
+            });
+            const targetBtn = document.getElementById(`size-btn-${productId}-${size}`);
+            if (targetBtn) {
+                targetBtn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200');
+                targetBtn.classList.add('bg-brand-600', 'text-white', 'border-brand-600');
+            }
+        }
+
+        function openProductModal(productId) {
+            const p = products.find(item => item.id === productId);
+            if (!p) return;
+
+            const modalContent = document.getElementById('modal-content');
+
+            modalContent.innerHTML = `
+                <div class="relative aspect-[3/4] bg-slate-100 rounded-2xl overflow-hidden shadow-inner">
+                    <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover object-center">
+                    <span class="absolute top-3 left-3 px-3 py-1 bg-brand-600 text-white text-xs font-bold rounded-full">
+                        ${p.badge}
+                    </span>
+                </div>
+
+                <div class="space-y-4 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider">${p.categoryLabel}</span>
+                        <h3 class="font-serif text-2xl font-bold text-slate-900 mt-0.5">${p.name}</h3>
+                        <p class="text-xl font-bold text-brand-700 mt-1">${formatRupiah(p.price)}</p>
+                        
+                        <p class="text-xs text-slate-600 leading-relaxed mt-3">${p.desc}</p>
+                        <p class="text-xs text-slate-500 mt-2"><strong>Pilihan Warna:</strong> ${p.color}</p>
+
+                        <div class="border-t border-slate-200 pt-3 mt-3">
+                            <h4 class="text-xs font-bold text-slate-900 uppercase mb-2">Panduan Ukuran Lengkap (Size Guide)</h4>
+                            <div class="space-y-1.5 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                ${Object.entries(p.sizes).map(([sz, details]) => `
+                                    <div class="flex justify-between border-b border-slate-200/60 pb-1 last:border-none">
+                                        <span class="font-bold text-slate-800 w-8">Ukuran ${sz}:</span>
+                                        <span class="text-slate-600">${details}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button onclick="addToCart('${p.id}'); closeProductModal();" class="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-md">
+                            <i class="fa-solid fa-bag-shopping"></i> Tambahkan ke Keranjang
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        function addToCart(productId) {
+            const p = products.find(item => item.id === productId);
+            if (!p) return;
+
+            const size = selectedSizes[productId] || 'M';
+            const cartKey = `${productId}-${size}`;
+
+            const existingIndex = cart.findIndex(item => item.cartKey === cartKey);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    cartKey: cartKey,
+                    id: p.id,
+                    name: p.name,
+                    price: p.price,
+                    size: size,
+                    image: p.image,
+                    qty: 1
+                });
+            }
+
+            saveCartToStorage();
+            updateCartUI();
+            showToast(`"${p.name}" (Size ${size}) berhasil ditambahkan ke keranjang!`);
+        }
+
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-drawer-backdrop');
+
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        function updateCartQty(cartKey, delta) {
+            const index = cart.findIndex(item => item.cartKey === cartKey);
+            if (index > -1) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+            }
+            saveCartToStorage();
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-badge');
+            const countText = document.getElementById('cart-item-count');
+            const subtotalText = document.getElementById('cart-subtotal');
+            const totalText = document.getElementById('cart-total');
+
+            const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+            badge.innerText = totalQty;
+            if (totalQty > 0) {
+                badge.classList.remove('scale-0');
+            } else {
+                badge.classList.add('scale-0');
+            }
+            countText.innerText = totalQty;
+            subtotalText.innerText = formatRupiah(subtotal);
+            totalText.innerText = formatRupiah(subtotal);
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 space-y-3">
+                        <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto text-2xl">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </div>
+                        <p class="text-slate-600 font-medium text-sm">Keranjang Anda masih kosong</p>
+                        <p class="text-slate-400 text-xs">Pilih pakaian favorit Anda dan tambahkan ke sini.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between p-3.5 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-xl object-cover shrink-0">
+                        <div>
+                            <h4 class="font-bold text-xs text-slate-900 line-clamp-1">${item.name}</h4>
+                            <div class="flex items-center gap-2 mt-0.5">
+                                <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded">Size: ${item.size}</span>
+                                <span class="text-xs font-bold text-brand-700">${formatRupiah(item.price)}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center border border-slate-200 rounded-lg bg-slate-50">
+                            <button onclick="updateCartQty('${item.cartKey}', -1)" class="w-6 h-6 text-slate-600 hover:bg-slate-200 rounded-l-lg flex items-center justify-center text-xs font-bold">-</button>
+                            <span class="w-6 text-center text-xs font-bold text-slate-800">${item.qty}</span>
+                            <button onclick="updateCartQty('${item.cartKey}', 1)" class="w-6 h-6 text-slate-600 hover:bg-slate-200 rounded-r-lg flex items-center justify-center text-xs font-bold">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function saveCartToStorage() {
+            try {
+                localStorage.setItem('boutique_cart', JSON.stringify(cart));
+            } catch (e) {}
+        }
+
+        function loadCartFromStorage() {
+            try {
+                const data = localStorage.getItem('boutique_cart');
+                if (data) {
+                    cart = JSON.parse(data);
+                }
+            } catch (e) {
+                cart = [];
+            }
+        }
+
+        // WhatsApp Checkout
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                showToast('Keranjang Anda masih kosong! Pilih baju terlebih dahulu.', 'warning');
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim() || 'Pelanggan BOUTIQUE';
+            const address = document.getElementById('cust-address').value.trim() || 'Alamat belum diisi';
+            const notes = document.getElementById('cust-notes').value.trim() || '-';
+
+            let message = `*HALO ADMIN BOUTIQUE! Saya ingin memesan pakaian berikut:*\n\n`;
+            message += `👤 *Nama:* ${name}\n`;
+            message += `📍 *Alamat Pengiriman:* ${address}\n`;
+            message += `📝 *Catatan:* ${notes}\n\n`;
+            message += `🛍️ *DAFTAR PESANAN:*\n`;
+
+            let totalBelanja = 0;
+            cart.forEach((item, idx) => {
+                const sub = item.price * item.qty;
+                totalBelanja += sub;
+                message += `${idx + 1}. *${item.name}*\n   • Ukuran: *${item.size}*\n   • Qty: ${item.qty}x @ ${formatRupiah(item.price)}\n   • Subtotal: ${formatRupiah(sub)}\n`;
+            });
+
+            message += `\n💰 *TOTAL ESTIMASI:* ${formatRupiah(totalBelanja)}\n\n`;
+            message += `Mohon konfirmasi ketersediaan stok & rincian ongkos kirimnya ya. Terima kasih!`;
+
+            const encoded = encodeURIComponent(message);
+            const waUrl = `https://wa.me/62822110945?text=${encoded}`;
+            
+            window.open(waUrl, '_blank');
+        }
+
+        function showToast(text, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'warning' ? 'bg-amber-600' : 'bg-slate-900';
+            toast.className = `${bgColor} text-white text-xs font-medium px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2 animate-fade-in pointer-events-auto border border-white/10`;
+            toast.innerHTML = `
+                <i class="fa-solid ${type === 'warning' ? 'fa-triangle-exclamation text-amber-300' : 'fa-circle-check text-emerald-400'} text-base"></i>
+                <span>${text}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                menu.classList.add('hidden');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
+    </script>
+</body>
+</html>
